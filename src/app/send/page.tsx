@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAccount, useSendTransaction } from "wagmi";
 import { parseEther } from "viem";
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 
 export default function SendPage() {
   const { address, isConnected } = useAccount();
@@ -23,7 +24,7 @@ export default function SendPage() {
     <main className="min-h-screen bg-gray-950 text-white">
       <nav className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-blue-500 rounded-lg"></div>
+          <Logo />
           <span className="text-xl font-bold">ArcPay</span>
         </Link>
         <span className="text-sm text-gray-400">
