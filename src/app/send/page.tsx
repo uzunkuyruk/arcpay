@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function SendPage() {
   const { address, isConnected } = useAccount();
-  const { sendTransaction, isPending, isSuccess, hash } = useSendTransaction();
+  const { sendTransaction, isPending, isSuccess } = useSendTransaction();
   const [to, setTo] = useState("");
   const [amount, setAmount] = useState("");
 
@@ -67,7 +67,7 @@ export default function SendPage() {
             >
               {isPending ? "Sending..." : "Send Payment"}
             </button>
-            {isSuccess && hash && (
+            {isSuccess && (
               <div className="bg-green-900/20 border border-green-800 rounded-xl p-4">
                 <p className="text-green-400 font-medium">Payment sent!</p>
               </div>
