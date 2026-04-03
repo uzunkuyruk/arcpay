@@ -16,6 +16,9 @@ export default function Home() {
         <div className="flex items-center gap-2">
           <Logo />
           <span className="text-xl font-bold">ArcPay</span>
+        <a href="https://faucet.circle.com" target="_blank" rel="noopener noreferrer" className="ml-8 text-sm text-gray-300 hover:text-white transition">
+          Faucet
+        </a>
         </div>
         {isConnected ? (
           <div className="flex items-center gap-3">
