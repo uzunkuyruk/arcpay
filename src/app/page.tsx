@@ -11,23 +11,98 @@ export default function Home() {
   const { disconnect } = useDisconnect();
 
   return (
-    <main className="min-h-screen bg-gray-950 text-white">
-      <nav className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+    <main style={{
+      minHeight: "100vh",
+      background: "linear-gradient(180deg, #03060f 0%, #060d1f 40%, #0a1628 70%, #0d1f3c 100%)",
+      color: "#f0e6c8",
+      fontFamily: "'Georgia', 'Times New Roman', serif",
+      position: "relative",
+      overflow: "hidden",
+    }}>
+
+      <div style={{
+        position: "fixed",
+        inset: 0,
+        backgroundImage: `radial-gradient(1px 1px at 20% 30%, rgba(255,255,220,0.6) 0%, transparent 100%),
+          radial-gradient(1px 1px at 80% 10%, rgba(255,255,220,0.5) 0%, transparent 100%),
+          radial-gradient(1px 1px at 50% 60%, rgba(255,255,220,0.4) 0%, transparent 100%),
+          radial-gradient(1px 1px at 10% 80%, rgba(255,255,220,0.3) 0%, transparent 100%),
+          radial-gradient(1px 1px at 90% 50%, rgba(255,255,220,0.5) 0%, transparent 100%),
+          radial-gradient(1px 1px at 35% 15%, rgba(255,255,220,0.4) 0%, transparent 100%),
+          radial-gradient(1px 1px at 65% 85%, rgba(255,255,220,0.3) 0%, transparent 100%),
+          radial-gradient(2px 2px at 70% 25%, rgba(255,255,200,0.4) 0%, transparent 100%),
+          radial-gradient(2px 2px at 15% 55%, rgba(255,255,200,0.3) 0%, transparent 100%)`,
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
+
+      <div style={{
+        position: "fixed",
+        top: 0,
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "800px",
+        height: "300px",
+        background: "radial-gradient(ellipse at top, rgba(180,140,40,0.12) 0%, transparent 70%)",
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
+
+      <nav style={{
+        position: "relative",
+        zIndex: 10,
+        borderBottom: "1px solid rgba(201,162,39,0.25)",
+        padding: "16px 32px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        background: "rgba(3,6,15,0.6)",
+        backdropFilter: "blur(12px)",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <Logo />
-          <span className="text-xl font-bold">ArcPay</span>
-          <a href="https://faucet.circle.com" target="_blank" rel="noopener noreferrer" className="ml-8 text-sm text-gray-300 hover:text-white transition">
+          <span style={{
+            fontSize: "1.3rem",
+            fontWeight: "700",
+            letterSpacing: "0.05em",
+            color: "#d4af37",
+          }}>ArcPay</span>
+          <a
+            href="https://faucet.circle.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              marginLeft: "28px",
+              fontSize: "0.85rem",
+              color: "rgba(201,162,39,0.7)",
+              textDecoration: "none",
+              letterSpacing: "0.08em",
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = "#d4af37")}
+            onMouseLeave={e => (e.currentTarget.style.color = "rgba(201,162,39,0.7)")}
+          >
             Faucet
           </a>
         </div>
+
         {isConnected ? (
-          <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-400">
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <span style={{ fontSize: "0.8rem", color: "rgba(201,162,39,0.6)" }}>
               {address?.slice(0, 6)}...{address?.slice(-4)}
             </span>
             <button
               onClick={() => disconnect()}
-              className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-medium transition"
+              style={{
+                background: "rgba(120,30,30,0.4)",
+                border: "1px solid rgba(180,60,60,0.4)",
+                color: "#f0a0a0",
+                padding: "8px 18px",
+                borderRadius: "6px",
+                fontSize: "0.85rem",
+                cursor: "pointer",
+                letterSpacing: "0.05em",
+              }}
             >
               Disconnect
             </button>
@@ -35,69 +110,189 @@ export default function Home() {
         ) : (
           <button
             onClick={() => connect({ connector: injected() })}
-            className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition"
+            style={{
+              background: "linear-gradient(135deg, rgba(180,140,40,0.2), rgba(201,162,39,0.1))",
+              border: "1px solid rgba(201,162,39,0.5)",
+              color: "#d4af37",
+              padding: "8px 22px",
+              borderRadius: "6px",
+              fontSize: "0.85rem",
+              cursor: "pointer",
+              letterSpacing: "0.08em",
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = "linear-gradient(135deg, rgba(180,140,40,0.35), rgba(201,162,39,0.2))";
+              e.currentTarget.style.borderColor = "rgba(201,162,39,0.8)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = "linear-gradient(135deg, rgba(180,140,40,0.2), rgba(201,162,39,0.1))";
+              e.currentTarget.style.borderColor = "rgba(201,162,39,0.5)";
+            }}
           >
             Connect Wallet
           </button>
         )}
       </nav>
 
-      <section className="max-w-4xl mx-auto px-6 py-24 text-center">
-        <div className="inline-block bg-blue-900/40 text-blue-400 text-sm px-3 py-1 rounded-full mb-6">
+      <section style={{
+        position: "relative",
+        zIndex: 1,
+        maxWidth: "900px",
+        margin: "0 auto",
+        padding: "100px 24px 80px",
+        textAlign: "center",
+      }}>
+        <div style={{
+          display: "inline-block",
+          border: "1px solid rgba(201,162,39,0.3)",
+          color: "rgba(201,162,39,0.8)",
+          fontSize: "0.78rem",
+          padding: "5px 16px",
+          borderRadius: "20px",
+          marginBottom: "32px",
+          letterSpacing: "0.15em",
+          textTransform: "uppercase" as const,
+          background: "rgba(201,162,39,0.05)",
+        }}>
           Live on Arc Testnet
         </div>
-        <h1 className="text-5xl font-bold mb-6 leading-tight">
+
+        <h1 style={{
+          fontSize: "clamp(2.8rem, 6vw, 4.5rem)",
+          fontWeight: "700",
+          lineHeight: "1.15",
+          marginBottom: "24px",
+          color: "#f0e6c8",
+          textShadow: "0 0 60px rgba(201,162,39,0.2)",
+          letterSpacing: "0.02em",
+        }}>
           Global Payments &<br />
-          <span className="text-blue-400">Stablecoin Swap</span>
+          <span style={{ color: "#d4af37" }}>Stablecoin Swap</span>
         </h1>
-        <p className="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
+
+        <p style={{
+          color: "rgba(200,185,150,0.7)",
+          fontSize: "1.1rem",
+          maxWidth: "560px",
+          margin: "0 auto 48px",
+          lineHeight: "1.7",
+        }}>
           Send USDC instantly on Arc blockchain for ~$0.01. Swap USDC ↔ EURC in seconds.
         </p>
-        <div className="flex gap-4 justify-center">
-          <Link href="/send" className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-xl font-medium transition">
+
+        <div style={{ display: "flex", gap: "16px", justifyContent: "center" }}>
+          <Link href="/send" style={{
+            background: "linear-gradient(135deg, #b8860b, #d4af37)",
+            color: "#0a0e1a",
+            padding: "14px 36px",
+            borderRadius: "8px",
+            fontWeight: "700",
+            textDecoration: "none",
+            fontSize: "0.95rem",
+            letterSpacing: "0.06em",
+            boxShadow: "0 4px 24px rgba(180,140,40,0.3)",
+          }}>
             Send Payment
           </Link>
-          <Link href="/swap" className="border border-gray-700 hover:border-gray-500 px-8 py-3 rounded-xl font-medium transition">
+          <Link href="/swap" style={{
+            border: "1px solid rgba(201,162,39,0.4)",
+            color: "#d4af37",
+            padding: "14px 36px",
+            borderRadius: "8px",
+            fontWeight: "600",
+            textDecoration: "none",
+            fontSize: "0.95rem",
+            letterSpacing: "0.06em",
+            background: "rgba(201,162,39,0.05)",
+          }}>
             Swap Now
           </Link>
         </div>
       </section>
 
-      <section className="max-w-4xl mx-auto px-6 pb-24 grid grid-cols-3 gap-6">
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-          <div className="text-3xl mb-3">⚡</div>
-          <h3 className="font-bold mb-2">Instant Finality</h3>
-          <p className="text-gray-400 text-sm">Transaction confirmed in under 1 second</p>
-        </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-          <div className="text-3xl mb-3">💸</div>
-          <h3 className="font-bold mb-2">~$0.01 Fees</h3>
-          <p className="text-gray-400 text-sm">Stable, predictable gas paid in USDC</p>
-        </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-          <div className="text-3xl mb-3">🔄</div>
-          <h3 className="font-bold mb-2">FX Swap</h3>
-          <p className="text-gray-400 text-sm">Instant USDC ↔ EURC conversion</p>
-        </div>
+      <section style={{
+        position: "relative",
+        zIndex: 1,
+        maxWidth: "900px",
+        margin: "0 auto",
+        padding: "0 24px 80px",
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gap: "20px",
+      }}>
+        {[
+          { icon: "⚡", title: "Instant Finality", desc: "Transaction confirmed in under 1 second" },
+          { icon: "💸", title: "~$0.01 Fees", desc: "Stable, predictable gas paid in USDC" },
+          { icon: "🔄", title: "FX Swap", desc: "Instant USDC ↔ EURC conversion" },
+        ].map((item) => (
+          <div key={item.title} style={{
+            background: "linear-gradient(135deg, rgba(10,14,26,0.8), rgba(15,25,50,0.6))",
+            border: "1px solid rgba(201,162,39,0.2)",
+            borderRadius: "16px",
+            padding: "28px 24px",
+            backdropFilter: "blur(8px)",
+          }}>
+            <div style={{ fontSize: "2rem", marginBottom: "12px" }}>{item.icon}</div>
+            <h3 style={{ fontWeight: "700", marginBottom: "8px", color: "#f0e6c8", fontSize: "1rem" }}>{item.title}</h3>
+            <p style={{ color: "rgba(200,185,150,0.6)", fontSize: "0.88rem", lineHeight: "1.5" }}>{item.desc}</p>
+          </div>
+        ))}
       </section>
 
       {isConnected && (
-        <section className="max-w-4xl mx-auto px-6 pb-12">
-          <div className="bg-green-900/20 border border-green-800 rounded-2xl p-6 text-center">
-            <div className="text-green-400 font-bold text-lg mb-1">Wallet Connected!</div>
-            <div className="text-gray-400 text-sm">{address}</div>
+        <section style={{
+          position: "relative",
+          zIndex: 1,
+          maxWidth: "900px",
+          margin: "0 auto",
+          padding: "0 24px 48px",
+        }}>
+          <div style={{
+            background: "rgba(40,80,40,0.15)",
+            border: "1px solid rgba(80,160,80,0.3)",
+            borderRadius: "16px",
+            padding: "24px",
+            textAlign: "center",
+          }}>
+            <div style={{ color: "#6fcf97", fontWeight: "700", fontSize: "1.1rem", marginBottom: "4px" }}>Wallet Connected</div>
+            <div style={{ color: "rgba(200,185,150,0.5)", fontSize: "0.85rem" }}>{address}</div>
           </div>
         </section>
       )}
 
-      <footer className="border-t border-gray-800 mt-12 px-6 py-8">
-        <div className="flex justify-end pr-12">
-          <div className="flex items-center gap-6 text-sm text-gray-400">
-            <a href="https://docs.arc.network/arc/concepts/welcome-to-arc" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Docs</a>
-            <a href="https://x.com/arc" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">X</a>
-            <a href="https://discord.gg/buildonarc" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Discord</a>
-            <a href="https://community.arc.network/home" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Arc House</a>
-          </div>
+      <footer style={{
+        position: "relative",
+        zIndex: 1,
+        borderTop: "1px solid rgba(201,162,39,0.15)",
+        padding: "24px 48px",
+        display: "flex",
+        justifyContent: "flex-end",
+      }}>
+        <div style={{ display: "flex", gap: "28px", alignItems: "center" }}>
+          {[
+            { label: "Docs", href: "https://docs.arc.network/arc/concepts/welcome-to-arc" },
+            { label: "X", href: "https://x.com/arc" },
+            { label: "Discord", href: "https://discord.gg/buildonarc" },
+            { label: "Arc House", href: "https://community.arc.network/home" },
+          ].map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "rgba(201,162,39,0.5)",
+                textDecoration: "none",
+                fontSize: "0.82rem",
+                letterSpacing: "0.08em",
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = "#d4af37")}
+              onMouseLeave={e => (e.currentTarget.style.color = "rgba(201,162,39,0.5)")}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </footer>
     </main>
