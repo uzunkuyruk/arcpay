@@ -90,12 +90,15 @@ export default function Home() {
         </section>
       )}
     <footer className="border-t border-gray-800 mt-12 px-6 py-8">
-        <div className="max-w-4xl mx-auto flex flex-col items-center gap-4">
+        <div className="max-w-4xl mx-auto flex justify-end">
           <div className="flex items-center gap-6 text-sm text-gray-400">
             <a href="https://docs.arc.network/arc/concepts/welcome-to-arc" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Docs</a>
-            <a href="https://x.com/arc" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">X (Twitter)</a>
+            <a href="https://x.com/arc" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">X</a>
             <a href="https://discord.gg/buildonarc" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Discord</a>
             <a href="https://community.arc.network/home" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Arc House</a>
+          </div>
+        </div>
+      </footer>
             
           </div>
           <p className="text-gray-600 text-xs">Built on Arc Testnet</p>
