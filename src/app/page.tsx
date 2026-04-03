@@ -96,7 +96,7 @@ export default function Home() {
             <a href="https://x.com/arc" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">X (Twitter)</a>
             <a href="https://discord.gg/buildonarc" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Discord</a>
             <a href="https://community.arc.network/home" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Arc House</a>
-            <a href="https://faucet.circle.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Faucet</a>
+            
           </div>
           <p className="text-gray-600 text-xs">Built on Arc Testnet</p>
         </div>
