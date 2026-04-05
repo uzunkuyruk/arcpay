@@ -71,9 +71,9 @@ export default function Home() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <a href="https://faucet.circle.com" target="_blank" rel="noopener noreferrer"
-              style={{ fontSize: "0.82rem", color: "rgba(74,144,255,0.6)", textDecoration: "none", letterSpacing: "0.1em", fontWeight: "500" }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#4a90ff")}
-              onMouseLeave={e => (e.currentTarget.style.color = "rgba(74,144,255,0.6)")}>
+              style={{ fontSize: "0.82rem", color: "rgba(74,144,255,0.6)", textDecoration: "none", letterSpacing: "0.1em", fontWeight: "500", border: "1px solid rgba(74,144,255,0.4)", padding: "9px 24px", borderRadius: "8px" }}
+              onMouseEnter={e => { e.currentTarget.style.color = "#4a90ff"; e.currentTarget.style.borderColor = "rgba(74,144,255,0.8)"; }}
+              onMouseLeave={e => { e.currentTarget.style.color = "rgba(74,144,255,0.6)"; e.currentTarget.style.borderColor = "rgba(74,144,255,0.4)"; }}>
               Faucet
             </a>
             {isConnected ? (
