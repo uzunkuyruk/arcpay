@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAccount, useWriteContract, useChainId, useSwitchChain } from "wagmi";
 import { parseUnits } from "viem";
 import Link from "next/link";
@@ -16,12 +16,16 @@ export default function SendPage() {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const { switchChain } = useSwitchChain();
+  const [mounted, setMounted] = useState(false);
   const [to, setTo] = useState("");
   const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
   const [step, setStep] = useState("idle");
   const [txHash, setTxHash] = useState("");
   const { writeContract } = useWriteContract();
+
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
   const isWrongNetwork = chainId !== ARC_CHAIN_ID;
 
@@ -71,7 +75,6 @@ export default function SendPage() {
             </div>
           ) : (
             <div style={{ background: "rgba(255,255,255,0.7)", border: "1px solid rgba(37,99,235,0.12)", borderRadius: "20px", padding: "28px", display: "flex", flexDirection: "column", gap: "20px", backdropFilter: "blur(12px)", boxShadow: "0 2px 20px rgba(37,99,235,0.08)" }}>
-
               {isWrongNetwork && (
                 <div style={{ background: "rgba(220,50,50,0.06)", border: "1px solid rgba(220,50,50,0.2)", borderRadius: "12px", padding: "14px", textAlign: "center" }}>
                   <p style={{ color: "#dc2626", fontSize: "0.85rem", marginBottom: "10px" }}>⚠️ Wrong network detected</p>
@@ -81,7 +84,6 @@ export default function SendPage() {
                   </button>
                 </div>
               )}
-
               <div>
                 <label style={{ fontSize: "0.75rem", color: "#6b7280", marginBottom: "8px", display: "block", letterSpacing: "0.08em", textTransform: "uppercase" as const, fontWeight: "600" }}>Recipient Address</label>
                 <input type="text" placeholder="0x..." value={to} onChange={e => setTo(e.target.value)}
@@ -97,12 +99,10 @@ export default function SendPage() {
                 <input type="text" placeholder="Payment for..." value={note} onChange={e => setNote(e.target.value)}
                   style={{ width: "100%", background: "rgba(37,99,235,0.03)", border: "1px solid rgba(37,99,235,0.12)", borderRadius: "12px", padding: "12px 16px", color: "#0f172a", fontSize: "0.9rem" }} />
               </div>
-
               <button onClick={handleSend} disabled={isWrongNetwork || step !== "idle" || !to || !amount}
                 style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "linear-gradient(135deg, #2563eb, #3b82f6)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "none", color: step === "done" ? "#16a34a" : "#ffffff", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: isWrongNetwork || step !== "idle" || !to || !amount ? "not-allowed" : "pointer", opacity: isWrongNetwork || !to || !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
                 {step === "approving" ? "Approving..." : step === "sending" ? "Sending..." : step === "done" ? "✓ Sent!" : "Send Payment"}
               </button>
-
               {step === "done" && (
                 <div style={{ background: "rgba(220,252,231,0.6)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: "12px", padding: "16px" }}>
                   <p style={{ color: "#16a34a", fontWeight: "600", marginBottom: "6px" }}>Payment sent!</p>

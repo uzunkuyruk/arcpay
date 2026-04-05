@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAccount, useWriteContract, useChainId, useSwitchChain } from "wagmi";
 import { parseUnits } from "viem";
 import Link from "next/link";
@@ -18,12 +18,16 @@ export default function SwapPage() {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const { switchChain } = useSwitchChain();
+  const [mounted, setMounted] = useState(false);
   const [fromToken, setFromToken] = useState("USDC");
   const [toToken, setToToken] = useState("EURC");
   const [amount, setAmount] = useState("");
   const [step, setStep] = useState("idle");
   const [txHash, setTxHash] = useState("");
   const { writeContract } = useWriteContract();
+
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
   const isWrongNetwork = chainId !== ARC_CHAIN_ID;
 
@@ -38,7 +42,6 @@ export default function SwapPage() {
     const tokenOut = toToken === "USDC" ? USDC : EURC;
     const amountIn = parseUnits(amount, 6);
     const minAmountOut = parseUnits((parseFloat(amount) * 0.9).toFixed(6), 6);
-
     setStep("approving");
     writeContract({ address: tokenIn, abi: ERC20_ABI, functionName: "approve", args: [STABLEFX, amountIn] }, {
       onSuccess: () => {
@@ -82,7 +85,6 @@ export default function SwapPage() {
             </div>
           ) : (
             <div style={{ background: "rgba(255,255,255,0.7)", border: "1px solid rgba(37,99,235,0.12)", borderRadius: "20px", padding: "28px", display: "flex", flexDirection: "column", gap: "20px", backdropFilter: "blur(12px)", boxShadow: "0 2px 20px rgba(37,99,235,0.08)" }}>
-
               {isWrongNetwork && (
                 <div style={{ background: "rgba(220,50,50,0.06)", border: "1px solid rgba(220,50,50,0.2)", borderRadius: "12px", padding: "14px", textAlign: "center" }}>
                   <p style={{ color: "#dc2626", fontSize: "0.85rem", marginBottom: "10px" }}>⚠️ Wrong network detected</p>
@@ -92,7 +94,6 @@ export default function SwapPage() {
                   </button>
                 </div>
               )}
-
               <div>
                 <label style={{ fontSize: "0.75rem", color: "#6b7280", marginBottom: "8px", display: "block", letterSpacing: "0.08em", textTransform: "uppercase" as const, fontWeight: "600" }}>From</label>
                 <div style={{ display: "flex", gap: "12px" }}>
@@ -101,12 +102,10 @@ export default function SwapPage() {
                     style={{ flex: 1, background: "rgba(37,99,235,0.03)", border: "1px solid rgba(37,99,235,0.12)", borderRadius: "12px", padding: "12px 16px", color: "#0f172a", fontSize: "0.9rem" }} />
                 </div>
               </div>
-
               <button onClick={handleSwitch}
                 style={{ margin: "0 auto", background: "rgba(37,99,235,0.06)", border: "1px solid rgba(37,99,235,0.15)", width: "40px", height: "40px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", cursor: "pointer", color: "#2563eb" }}>
                 ↕
               </button>
-
               <div>
                 <label style={{ fontSize: "0.75rem", color: "#6b7280", marginBottom: "8px", display: "block", letterSpacing: "0.08em", textTransform: "uppercase" as const, fontWeight: "600" }}>To</label>
                 <div style={{ display: "flex", gap: "12px" }}>
@@ -116,17 +115,14 @@ export default function SwapPage() {
                   </div>
                 </div>
               </div>
-
               <div style={{ background: "rgba(37,99,235,0.04)", border: "1px solid rgba(37,99,235,0.08)", borderRadius: "12px", padding: "12px 16px", display: "flex", justifyContent: "space-between", fontSize: "0.82rem", color: "#6b7280" }}>
                 <span>Rate</span>
                 <span>1 {fromToken} ≈ 0.92 {toToken}</span>
               </div>
-
               <button onClick={handleSwap} disabled={isWrongNetwork || !amount || step !== "idle"}
                 style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "linear-gradient(135deg, #2563eb, #3b82f6)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "none", color: step === "done" ? "#16a34a" : "#ffffff", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: isWrongNetwork || !amount || step !== "idle" ? "not-allowed" : "pointer", opacity: isWrongNetwork || !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
                 {step === "approving" ? "Approving..." : step === "swapping" ? "Swapping..." : step === "done" ? "✓ Swapped!" : "Swap Now"}
               </button>
-
               {step === "done" && txHash && (
                 <div style={{ background: "rgba(220,252,231,0.6)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: "12px", padding: "16px" }}>
                   <p style={{ color: "#16a34a", fontWeight: "600", marginBottom: "6px" }}>Swap successful!</p>
