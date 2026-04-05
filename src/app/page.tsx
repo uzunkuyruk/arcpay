@@ -36,12 +36,7 @@ export default function Home() {
             <span style={{ fontSize: "1.25rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.02em" }}>ArcPay</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <a href="https://faucet.circle.com" target="_blank" rel="noopener noreferrer"
-              style={{ fontSize: "0.85rem", color: "#2563eb", textDecoration: "none", fontWeight: "500", border: "1px solid rgba(37,99,235,0.3)", padding: "8px 20px", borderRadius: "8px" }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(37,99,235,0.08)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
-              Faucet
-            </a>
+
             {isConnected ? (
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <span style={{ fontSize: "0.78rem", color: "#6b7280", fontWeight: "500" }}>
