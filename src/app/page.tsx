@@ -15,7 +15,7 @@ export default function Home() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #f0f4ff; }
+        body { background: #d8e4ff; }
       `}</style>
       <main style={{
         minHeight: "100vh",
@@ -23,7 +23,7 @@ export default function Home() {
         overflow: "hidden",
         fontFamily: "'Inter', sans-serif",
         color: "#1a1f36",
-        background: "linear-gradient(135deg, #e8f0ff 0%, #f0f4ff 50%, #e4eeff 100%)",
+        background: "linear-gradient(135deg, #c8d8f8 0%, #d8e4ff 50%, #c4d4f8 100%)",
       }}>
 
         <div style={{
