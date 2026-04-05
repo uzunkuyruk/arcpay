@@ -37,7 +37,7 @@ export default function Home() {
           pointerEvents: "none",
         }}>
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Circle_USDC_Logo.svg/1024px-Circle_USDC_Logo.svg.png"
+            src="/usdc.png"
             alt=""
             style={{
               width: "600px",
