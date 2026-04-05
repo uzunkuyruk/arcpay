@@ -18,7 +18,7 @@ export default function Home() {
         body { background: #c8d8f8; }
       `}</style>
       <main style={{
-        minHeight: "100vh",
+        minHeight: "90vh",
         position: "relative",
         overflow: "hidden",
         fontFamily: "'Inter', sans-serif",
