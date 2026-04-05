@@ -74,7 +74,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "0 24px 20px", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+        <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "0 24px 50px", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
           {[
             { icon: "⚡", title: "Instant Finality", desc: "Transaction confirmed in under 1 second" },
             { icon: "💸", title: "~$0.01 Fees", desc: "Stable, predictable gas paid in USDC" },
