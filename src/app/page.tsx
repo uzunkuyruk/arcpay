@@ -15,7 +15,7 @@ export default function Home() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #d8e4ff; }
+        body { background: #c8d8f8; }
       `}</style>
       <main style={{
         minHeight: "100vh",
@@ -26,29 +26,11 @@ export default function Home() {
         background: "linear-gradient(135deg, #c8d8f8 0%, #d8e4ff 50%, #c4d4f8 100%)",
       }}>
 
-        <div style={{
-          position: "fixed",
-          inset: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 0,
-          pointerEvents: "none",
-        }}>
+        <div style={{ position: "fixed", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 0, pointerEvents: "none" }}>
           <img src="/usdc.png" alt="" style={{ width: "600px", height: "600px", opacity: 0.05, filter: "blur(2px)", objectFit: "contain" }} />
         </div>
 
-        <nav style={{
-          position: "relative",
-          zIndex: 10,
-          borderBottom: "1px solid rgba(74,144,255,0.15)",
-          padding: "18px 40px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          background: "rgba(255,255,255,0.7)",
-          backdropFilter: "blur(16px)",
-        }}>
+        <nav style={{ position: "relative", zIndex: 10, borderBottom: "1px solid rgba(74,144,255,0.15)", padding: "18px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <Logo />
             <span style={{ fontSize: "1.25rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.02em" }}>ArcPay</span>
@@ -87,7 +69,7 @@ export default function Home() {
             Global Payments<br />
             <span style={{ color: "#2563eb" }}>Stablecoin Swap</span>
           </h1>
-          <p style={{ color: "#6b7280", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto 48px", lineHeight: "1.8", fontWeight: "400" }}>
+          <p style={{ color: "#6b7280", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto 48px", lineHeight: "1.8" }}>
             Send USDC instantly on Arc blockchain for ~$0.01. Swap USDC ↔ EURC in seconds.
           </p>
           <div style={{ display: "flex", gap: "14px", justifyContent: "center" }}>
@@ -116,7 +98,7 @@ export default function Home() {
 
         {isConnected && (
           <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "0 24px 48px" }}>
-            <div style={{ background: "rgba(220,252,231,0.6)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: "16px", padding: "22px", textAlign: "center", backdropFilter: "blur(8px)" }}>
+            <div style={{ background: "rgba(220,252,231,0.6)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: "16px", padding: "22px", textAlign: "center" }}>
               <div style={{ color: "#16a34a", fontWeight: "600", fontSize: "1rem", marginBottom: "6px" }}>✓ Wallet Connected</div>
               <div style={{ color: "#6b7280", fontSize: "0.8rem" }}>{address}</div>
             </div>
