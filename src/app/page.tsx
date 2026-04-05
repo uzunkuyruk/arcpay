@@ -25,14 +25,28 @@ export default function Home() {
       }}>
 
         <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
-          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "440px", height: "440px", opacity: 0.18, objectFit: "contain" }} />
-          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "60px", left: "60px", width: "180px", height: "180px", opacity: 0.14, objectFit: "contain" }} />
-          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "180px", left: "240px", width: "110px", height: "110px", opacity: 0.1, objectFit: "contain" }} />
-          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "60px", right: "100px", width: "160px", height: "160px", opacity: 0.14, objectFit: "contain" }} />
-          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "30px", right: "30px", width: "100px", height: "100px", opacity: 0.1, objectFit: "contain" }} />
-          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "80px", left: "40px", width: "140px", height: "140px", opacity: 0.12, objectFit: "contain" }} />
-          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "120px", right: "80px", width: "170px", height: "170px", opacity: 0.14, objectFit: "contain" }} />
-          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "40px", right: "260px", width: "110px", height: "110px", opacity: 0.1, objectFit: "contain" }} />
+          {/* Orta büyük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "480px", height: "480px", opacity: 0.25, objectFit: "contain" }} />
+          {/* Sol üst büyük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "40px", left: "40px", width: "200px", height: "200px", opacity: 0.22, objectFit: "contain" }} />
+          {/* Sol üst küçük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "200px", left: "220px", width: "130px", height: "130px", opacity: 0.16, objectFit: "contain" }} />
+          {/* Sol orta */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "45%", left: "30px", width: "150px", height: "150px", opacity: 0.18, objectFit: "contain" }} />
+          {/* Sol alt */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "60px", left: "30px", width: "160px", height: "160px", opacity: 0.2, objectFit: "contain" }} />
+          {/* Sol alt küçük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "200px", left: "180px", width: "100px", height: "100px", opacity: 0.14, objectFit: "contain" }} />
+          {/* Sağ üst büyük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "40px", right: "40px", width: "200px", height: "200px", opacity: 0.22, objectFit: "contain" }} />
+          {/* Sağ üst küçük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "220px", right: "220px", width: "120px", height: "120px", opacity: 0.16, objectFit: "contain" }} />
+          {/* Sağ orta */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "45%", right: "30px", width: "150px", height: "150px", opacity: 0.18, objectFit: "contain" }} />
+          {/* Sağ alt büyük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "60px", right: "40px", width: "180px", height: "180px", opacity: 0.22, objectFit: "contain" }} />
+          {/* Sağ alt küçük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "220px", right: "220px", width: "110px", height: "110px", opacity: 0.14, objectFit: "contain" }} />
         </div>
 
         <nav style={{ position: "relative", zIndex: 10, borderBottom: "1px solid rgba(74,144,255,0.15)", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)" }}>
