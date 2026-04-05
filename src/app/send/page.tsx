@@ -99,7 +99,7 @@ export default function SendPage() {
               </div>
 
               <button onClick={handleSend} disabled={isWrongNetwork || step !== "idle" || !to || !amount}
-                style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "linear-gradient(135deg, #2563eb, #3b82f6)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "none", color: step === "done" ? "#16a34a" : "#ffffff", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: isWrongNetwork || step !== "idle" || !to || !amount ? "not-allowed" : "pointer", opacity: isWrongNetwork || !to || !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
+                style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "rgba(37,99,235,0.04)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "1px solid rgba(37,99,235,0.3)", color: step === "done" ? "#16a34a" : "#2563eb", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: isWrongNetwork || step !== "idle" || !to || !amount ? "not-allowed" : "pointer", opacity: isWrongNetwork || !to || !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
                 {step === "approving" ? "Approving..." : step === "sending" ? "Sending..." : step === "done" ? "✓ Sent!" : "Send Payment"}
               </button>
 
