@@ -105,21 +105,56 @@ export default function Home() {
           </section>
         )}
 
-        <footer style={{ position: "relative", zIndex: 2, borderTop: "1px solid rgba(37,99,235,0.1)", padding: "22px 48px", display: "flex", justifyContent: "flex-end" }}>
-          <div style={{ display: "flex", gap: "28px", alignItems: "center" }}>
-            {[
-              { label: "Docs", href: "https://docs.arc.network/arc/concepts/welcome-to-arc" },
-              { label: "Arc House", href: "https://community.arc.network/home" },
-              { label: "Discord", href: "https://discord.gg/buildonarc" },
-              { label: "X", href: "https://x.com/arc" },
-            ].map((link) => (
-              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
-                style={{ color: "#9ca3af", textDecoration: "none", fontSize: "0.8rem", letterSpacing: "0.05em", fontWeight: "500" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#2563eb")}
-                onMouseLeave={e => (e.currentTarget.style.color = "#9ca3af")}>
-                {link.label}
-              </a>
-            ))}
+        <footer style={{ position: "relative", zIndex: 2, borderTop: "1px solid rgba(37,99,235,0.1)", padding: "48px 40px 32px", background: "rgba(255,255,255,0.5)", backdropFilter: "blur(8px)" }}>
+          <div style={{ maxWidth: "860px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "40px" }}>
+            <div>
+              <div style={{ fontSize: "0.7rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.2em", marginBottom: "20px" }}>// BUILD</div>
+              {[
+                { label: "Documentation", href: "https://docs.arc.network/arc/concepts/welcome-to-arc" },
+                { label: "Explorer", href: "https://testnet.arcscan.app" },
+                { label: "Faucet", href: "https://faucet.circle.com" },
+              ].map(link => (
+                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
+                  style={{ display: "block", color: "#374151", textDecoration: "none", fontSize: "0.9rem", fontWeight: "500", marginBottom: "12px" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#2563eb")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "#374151")}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+            <div>
+              <div style={{ fontSize: "0.7rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.2em", marginBottom: "20px" }}>// EXPLORE</div>
+              {[
+                { label: "Blog", href: "https://www.arc.network/blog" },
+                { label: "Ecosystem", href: "https://www.arc.network/ecosystem" },
+                { label: "Litepaper", href: "https://www.arc.network/litepaper" },
+              ].map(link => (
+                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
+                  style={{ display: "block", color: "#374151", textDecoration: "none", fontSize: "0.9rem", fontWeight: "500", marginBottom: "12px" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#2563eb")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "#374151")}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+            <div>
+              <div style={{ fontSize: "0.7rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.2em", marginBottom: "20px" }}>// CONNECT</div>
+              {[
+                { label: "Discord", href: "https://discord.gg/buildonarc" },
+                { label: "X", href: "https://x.com/arc" },
+                { label: "Arc House", href: "https://community.arc.network/home" },
+              ].map(link => (
+                <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
+                  style={{ display: "block", color: "#374151", textDecoration: "none", fontSize: "0.9rem", fontWeight: "500", marginBottom: "12px" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#2563eb")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "#374151")}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+          <div style={{ maxWidth: "860px", margin: "32px auto 0", paddingTop: "20px", borderTop: "1px solid rgba(37,99,235,0.1)", textAlign: "center", color: "#9ca3af", fontSize: "0.78rem" }}>
+            Built on Arc Testnet
           </div>
         </footer>
       </main>
