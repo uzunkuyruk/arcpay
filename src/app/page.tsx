@@ -25,7 +25,7 @@ export default function Home() {
       }}>
 
         <div style={{ position: "fixed", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 0, pointerEvents: "none" }}>
-          <img src="/usdc.png" alt="" style={{ width: "600px", height: "600px", opacity: 0.12, filter: "blur(2px)", objectFit: "contain" }} />
+          <img src="/usdc.png" alt="" style={{ width: "600px", height: "600px", opacity: 0.3, filter: "blur(2px)", objectFit: "contain" }} />
         </div>
 
         <nav style={{ position: "relative", zIndex: 10, borderBottom: "1px solid rgba(74,144,255,0.15)", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)" }}>
