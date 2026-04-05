@@ -3,7 +3,6 @@
 import { Logo } from "@/components/Logo";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { injected } from "wagmi/connectors";
-import Link from "next/link";
 
 export default function Home() {
   const { address, isConnected } = useAccount();
@@ -20,7 +19,6 @@ export default function Home() {
       <main style={{
         minHeight: "90vh",
         position: "relative",
-        overflow: "hidden",
         fontFamily: "'Inter', sans-serif",
         color: "#1a1f36",
         background: "linear-gradient(135deg, #c8d8f8 0%, #d8e4ff 50%, #c4d4f8 100%)",
@@ -36,7 +34,6 @@ export default function Home() {
             <span style={{ fontSize: "1.25rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.02em" }}>ArcPay</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-
             {isConnected ? (
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <span style={{ fontSize: "0.78rem", color: "#6b7280", fontWeight: "500" }}>
@@ -67,13 +64,13 @@ export default function Home() {
           <p style={{ color: "#6b7280", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto 48px", lineHeight: "1.8" }}>
             Send USDC instantly on Arc blockchain for ~$0.01. Swap USDC ↔ EURC in seconds.
           </p>
-          <div style={{ display: "flex", gap: "14px", justifyContent: "center" }}>
-            <Link href="/send" style={{ background: "linear-gradient(135deg, #2563eb, #3b82f6)", color: "#ffffff", padding: "13px 34px", borderRadius: "10px", fontWeight: "600", textDecoration: "none", fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(37,99,235,0.3)" }}>
+          <div style={{ display: "flex", gap: "14px", justifyContent: "center", position: "relative", zIndex: 10 }}>
+            <a href="/send" style={{ background: "linear-gradient(135deg, #2563eb, #3b82f6)", color: "#ffffff", padding: "13px 34px", borderRadius: "10px", fontWeight: "600", textDecoration: "none", fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(37,99,235,0.3)", display: "inline-block" }}>
               Send Payment
-            </Link>
-            <Link href="/swap" style={{ border: "1px solid rgba(37,99,235,0.3)", color: "#2563eb", padding: "13px 34px", borderRadius: "10px", fontWeight: "500", textDecoration: "none", fontSize: "0.95rem", background: "rgba(37,99,235,0.04)" }}>
+            </a>
+            <a href="/swap" style={{ background: "linear-gradient(135deg, #2563eb, #3b82f6)", color: "#ffffff", padding: "13px 34px", borderRadius: "10px", fontWeight: "600", textDecoration: "none", fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(37,99,235,0.3)", display: "inline-block" }}>
               Swap Now
-            </Link>
+            </a>
           </div>
         </section>
 
