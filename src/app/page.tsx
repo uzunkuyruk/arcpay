@@ -88,15 +88,6 @@ export default function Home() {
           ))}
         </section>
 
-        {isConnected && (
-          <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "0 24px 24px" }}>
-            <div style={{ background: "rgba(220,252,231,0.6)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: "16px", padding: "22px", textAlign: "center" }}>
-              <div style={{ color: "#16a34a", fontWeight: "600", fontSize: "1rem", marginBottom: "6px" }}>✓ Wallet Connected</div>
-              <div style={{ color: "#6b7280", fontSize: "0.8rem" }}>{address}</div>
-            </div>
-          </section>
-        )}
-
         <footer style={{ position: "relative", zIndex: 2, borderTop: "1px solid rgba(37,99,235,0.1)", padding: "16px 40px 12px", background: "rgba(255,255,255,0.5)", backdropFilter: "blur(8px)" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
             <div>
