@@ -24,8 +24,10 @@ export default function Home() {
         background: "linear-gradient(135deg, #c8d8f8 0%, #d8e4ff 50%, #c4d4f8 100%)",
       }}>
 
-        <div style={{ position: "fixed", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 0, pointerEvents: "none" }}>
-          <img src="/usdc.png" alt="" style={{ width: "600px", height: "600px", opacity: 0.3, filter: "blur(2px)", objectFit: "contain" }} />
+        <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}>
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "500px", height: "500px", opacity: 0.15, objectFit: "contain" }} />
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "-80px", right: "-80px", width: "350px", height: "350px", opacity: 0.07, objectFit: "contain" }} />
+          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "-60px", left: "-60px", width: "300px", height: "300px", opacity: 0.07, objectFit: "contain" }} />
         </div>
 
         <nav style={{ position: "relative", zIndex: 10, borderBottom: "1px solid rgba(74,144,255,0.15)", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)" }}>
