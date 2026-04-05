@@ -105,7 +105,7 @@ export default function Home() {
           </section>
         )}
 
-        <footer style={{ position: "relative", zIndex: 2, borderTop: "1px solid rgba(37,99,235,0.1)", padding: "48px 40px 32px", background: "rgba(255,255,255,0.5)", backdropFilter: "blur(8px)" }}>
+        <footer style={{ position: "relative", zIndex: 2, borderTop: "1px solid rgba(37,99,235,0.1)", padding: "28px 40px 20px", background: "rgba(255,255,255,0.5)", backdropFilter: "blur(8px)" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "40px" }}>
             <div>
               <div style={{ fontSize: "0.7rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.2em", marginBottom: "20px" }}>// BUILD</div>
