@@ -15,7 +15,7 @@ export default function Home() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #020408; }
+        body { background: #060d1a; }
       `}</style>
       <main style={{
         minHeight: "100vh",
@@ -23,7 +23,7 @@ export default function Home() {
         overflow: "hidden",
         fontFamily: "'Inter', sans-serif",
         color: "#e8dcc8",
-        background: "#020408",
+        background: "#060d1a",
       }}>
 
         {/* USDC arka plan görseli */}
@@ -103,7 +103,7 @@ export default function Home() {
             Live on Arc Testnet
           </div>
           <h1 style={{ fontFamily: "'Cinzel', serif", fontSize: "clamp(2.4rem, 5.5vw, 4rem)", fontWeight: "700", lineHeight: "1.2", marginBottom: "28px", color: "#ffffff", letterSpacing: "0.03em" }}>
-            Global Payments &<br />
+            Global Payments<br />
             <span style={{ color: "#4a90ff" }}>Stablecoin Swap</span>
           </h1>
           <p style={{ color: "rgba(180,195,220,0.65)", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto 52px", lineHeight: "1.8", fontWeight: "300" }}>
