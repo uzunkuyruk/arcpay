@@ -15,7 +15,7 @@ export default function Home() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #060d1a; }
+        body { background: #0d1f3d; }
       `}</style>
       <main style={{
         minHeight: "100vh",
@@ -23,7 +23,7 @@ export default function Home() {
         overflow: "hidden",
         fontFamily: "'Inter', sans-serif",
         color: "#e8dcc8",
-        background: "#060d1a",
+        background: "#0d1f3d",
       }}>
 
         <div style={{
