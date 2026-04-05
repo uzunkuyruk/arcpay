@@ -61,7 +61,7 @@ export default function Home() {
           </div>
         </nav>
 
-        <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "100px 24px 80px", textAlign: "center" }}>
+        <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "70px 24px 50px", textAlign: "center" }}>
           <div style={{ display: "inline-block", border: "1px solid rgba(37,99,235,0.2)", color: "#2563eb", fontSize: "0.72rem", padding: "5px 18px", borderRadius: "20px", marginBottom: "32px", letterSpacing: "0.15em", textTransform: "uppercase" as const, background: "rgba(37,99,235,0.06)", fontWeight: "600" }}>
             Live on Arc Testnet
           </div>
@@ -82,7 +82,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: padding: "0 24px 20px", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+        <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "0 24px 20px", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
           {[
             { icon: "⚡", title: "Instant Finality", desc: "Transaction confirmed in under 1 second" },
             { icon: "💸", title: "~$0.01 Fees", desc: "Stable, predictable gas paid in USDC" },
@@ -97,7 +97,7 @@ export default function Home() {
         </section>
 
         {isConnected && (
-          <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "0 24px 48px" }}>
+          <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "0 24px 24px" }}>
             <div style={{ background: "rgba(220,252,231,0.6)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: "16px", padding: "22px", textAlign: "center" }}>
               <div style={{ color: "#16a34a", fontWeight: "600", fontSize: "1rem", marginBottom: "6px" }}>✓ Wallet Connected</div>
               <div style={{ color: "#6b7280", fontSize: "0.8rem" }}>{address}</div>
@@ -153,7 +153,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div style={{ maxWidth: "860px", margin: "32px auto 0", paddingTop: "20px", borderTop: "1px solid rgba(37,99,235,0.1)", textAlign: "center", color: "#9ca3af", fontSize: "0.78rem" }}>
+          <div style={{ maxWidth: "860px", margin: "24px auto 0", paddingTop: "16px", borderTop: "1px solid rgba(37,99,235,0.1)", textAlign: "center", color: "#9ca3af", fontSize: "0.78rem" }}>
             Built on Arc Testnet
           </div>
         </footer>
