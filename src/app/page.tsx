@@ -30,7 +30,7 @@ export default function Home() {
           <img src="/usdc.png" alt="" style={{ width: "600px", height: "600px", opacity: 0.05, filter: "blur(2px)", objectFit: "contain" }} />
         </div>
 
-        <nav style={{ position: "relative", zIndex: 10, borderBottom: "1px solid rgba(74,144,255,0.15)", padding: "18px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)" }}>
+        <nav style={{ position: "relative", zIndex: 10, borderBottom: "1px solid rgba(74,144,255,0.15)", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <Logo />
             <span style={{ fontSize: "1.25rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.02em" }}>ArcPay</span>
