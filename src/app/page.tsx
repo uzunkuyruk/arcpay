@@ -26,7 +26,6 @@ export default function Home() {
         background: "#060d1a",
       }}>
 
-        {/* USDC arka plan görseli */}
         <div style={{
           position: "fixed",
           inset: 0,
@@ -49,7 +48,6 @@ export default function Home() {
           />
         </div>
 
-        {/* NAV */}
         <nav style={{
           position: "relative",
           zIndex: 10,
@@ -70,34 +68,35 @@ export default function Home() {
               color: "#4a90ff",
               letterSpacing: "0.08em",
             }}>ArcPay</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <a href="https://faucet.circle.com" target="_blank" rel="noopener noreferrer"
-              style={{ marginLeft: "32px", fontSize: "0.82rem", color: "rgba(74,144,255,0.6)", textDecoration: "none", letterSpacing: "0.1em", fontWeight: "500" }}
+              style={{ fontSize: "0.82rem", color: "rgba(74,144,255,0.6)", textDecoration: "none", letterSpacing: "0.1em", fontWeight: "500" }}
               onMouseEnter={e => (e.currentTarget.style.color = "#4a90ff")}
               onMouseLeave={e => (e.currentTarget.style.color = "rgba(74,144,255,0.6)")}>
               Faucet
             </a>
-          </div>
-          {isConnected ? (
-            <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-              <span style={{ fontSize: "0.78rem", color: "rgba(74,144,255,0.5)", fontWeight: "500" }}>
-                {address?.slice(0, 6)}...{address?.slice(-4)}
-              </span>
-              <button onClick={() => disconnect()}
-                style={{ background: "rgba(120,30,30,0.3)", border: "1px solid rgba(180,60,60,0.35)", color: "#f0a0a0", padding: "8px 20px", borderRadius: "8px", fontSize: "0.82rem", cursor: "pointer", fontFamily: "'Inter', sans-serif", fontWeight: "500" }}>
-                Disconnect
+            {isConnected ? (
+              <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+                <span style={{ fontSize: "0.78rem", color: "rgba(74,144,255,0.5)", fontWeight: "500" }}>
+                  {address?.slice(0, 6)}...{address?.slice(-4)}
+                </span>
+                <button onClick={() => disconnect()}
+                  style={{ background: "rgba(120,30,30,0.3)", border: "1px solid rgba(180,60,60,0.35)", color: "#f0a0a0", padding: "8px 20px", borderRadius: "8px", fontSize: "0.82rem", cursor: "pointer", fontFamily: "'Inter', sans-serif", fontWeight: "500" }}>
+                  Disconnect
+                </button>
+              </div>
+            ) : (
+              <button onClick={() => connect({ connector: injected() })}
+                style={{ background: "linear-gradient(135deg, rgba(38,102,255,0.15), rgba(74,144,255,0.08))", border: "1px solid rgba(74,144,255,0.4)", color: "#4a90ff", padding: "9px 24px", borderRadius: "8px", fontSize: "0.82rem", cursor: "pointer", fontFamily: "'Inter', sans-serif", fontWeight: "500", letterSpacing: "0.05em" }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(74,144,255,0.8)"; e.currentTarget.style.background = "rgba(74,144,255,0.12)"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(74,144,255,0.4)"; e.currentTarget.style.background = "linear-gradient(135deg, rgba(38,102,255,0.15), rgba(74,144,255,0.08))"; }}>
+                Connect Wallet
               </button>
-            </div>
-          ) : (
-            <button onClick={() => connect({ connector: injected() })}
-              style={{ background: "linear-gradient(135deg, rgba(38,102,255,0.15), rgba(74,144,255,0.08))", border: "1px solid rgba(74,144,255,0.4)", color: "#4a90ff", padding: "9px 24px", borderRadius: "8px", fontSize: "0.82rem", cursor: "pointer", fontFamily: "'Inter', sans-serif", fontWeight: "500", letterSpacing: "0.05em" }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(74,144,255,0.8)"; e.currentTarget.style.background = "rgba(74,144,255,0.12)"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(74,144,255,0.4)"; e.currentTarget.style.background = "linear-gradient(135deg, rgba(38,102,255,0.15), rgba(74,144,255,0.08))"; }}>
-              Connect Wallet
-            </button>
-          )}
+            )}
+          </div>
         </nav>
 
-        {/* HERO */}
         <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "120px 24px 90px", textAlign: "center" }}>
           <div style={{ display: "inline-block", border: "1px solid rgba(74,144,255,0.25)", color: "rgba(74,144,255,0.7)", fontSize: "0.72rem", padding: "5px 18px", borderRadius: "20px", marginBottom: "36px", letterSpacing: "0.2em", textTransform: "uppercase" as const, background: "rgba(74,144,255,0.04)", fontWeight: "500" }}>
             Live on Arc Testnet
@@ -119,7 +118,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FEATURES */}
         <section style={{ position: "relative", zIndex: 2, maxWidth: "860px", margin: "0 auto", padding: "0 24px 90px", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
           {[
             { icon: "⚡", title: "Instant Finality", desc: "Transaction confirmed in under 1 second" },
