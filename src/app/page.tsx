@@ -25,9 +25,22 @@ export default function Home() {
       }}>
 
         <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
-          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "500px", height: "500px", opacity: 0.15, objectFit: "contain" }} />
-          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "20px", right: "20px", width: "280px", height: "280px", opacity: 0.08, objectFit: "contain" }} />
-          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "20px", left: "20px", width: "240px", height: "240px", opacity: 0.08, objectFit: "contain" }} />
+          {/* Orta */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "420px", height: "420px", opacity: 0.12, objectFit: "contain" }} />
+          {/* Sol üst büyük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "60px", left: "60px", width: "160px", height: "160px", opacity: 0.1, objectFit: "contain" }} />
+          {/* Sol üst küçük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "160px", left: "220px", width: "100px", height: "100px", opacity: 0.08, objectFit: "contain" }} />
+          {/* Sağ üst büyük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "60px", right: "100px", width: "140px", height: "140px", opacity: 0.1, objectFit: "contain" }} />
+          {/* Sağ üst küçük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", top: "30px", right: "30px", width: "90px", height: "90px", opacity: 0.07, objectFit: "contain" }} />
+          {/* Sol alt */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "80px", left: "40px", width: "120px", height: "120px", opacity: 0.08, objectFit: "contain" }} />
+          {/* Sağ alt büyük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "120px", right: "80px", width: "150px", height: "150px", opacity: 0.1, objectFit: "contain" }} />
+          {/* Sağ alt küçük */}
+          <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "40px", right: "240px", width: "100px", height: "100px", opacity: 0.07, objectFit: "contain" }} />
         </div>
 
         <nav style={{ position: "relative", zIndex: 10, borderBottom: "1px solid rgba(74,144,255,0.15)", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)" }}>
