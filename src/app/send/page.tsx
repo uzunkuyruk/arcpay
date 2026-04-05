@@ -3,7 +3,6 @@
 import { Logo } from "@/components/Logo";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { injected } from "wagmi/connectors";
-import Link from "next/link";
 
 export default function Home() {
   const { address, isConnected } = useAccount();
@@ -67,12 +66,12 @@ export default function Home() {
             Send USDC instantly on Arc blockchain for ~$0.01. Swap USDC ↔ EURC in seconds.
           </p>
           <div style={{ display: "flex", gap: "14px", justifyContent: "center" }}>
-            <Link href="/send" style={{ background: "linear-gradient(135deg, #2563eb, #3b82f6)", color: "#ffffff", padding: "13px 34px", borderRadius: "10px", fontWeight: "600", textDecoration: "none", fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(37,99,235,0.3)" }}>
+            <a href="/send" style={{ background: "linear-gradient(135deg, #2563eb, #3b82f6)", color: "#ffffff", padding: "13px 34px", borderRadius: "10px", fontWeight: "600", textDecoration: "none", fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(37,99,235,0.3)" }}>
               Send Payment
-            </Link>
-            <Link href="/swap" style={{ background: "linear-gradient(135deg, #2563eb, #3b82f6)", color: "#ffffff", padding: "13px 34px", borderRadius: "10px", fontWeight: "600", textDecoration: "none", fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(37,99,235,0.3)" }}>
+            </a>
+            <a href="/swap" style={{ background: "linear-gradient(135deg, #2563eb, #3b82f6)", color: "#ffffff", padding: "13px 34px", borderRadius: "10px", fontWeight: "600", textDecoration: "none", fontSize: "0.95rem", boxShadow: "0 4px 20px rgba(37,99,235,0.3)" }}>
               Swap Now
-            </Link>
+            </a>
           </div>
         </section>
 
