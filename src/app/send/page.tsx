@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAccount, useWriteContract, useChainId, useSwitchChain } from "wagmi";
+import { useAccount, useWriteContract, useChainId } from "wagmi";
 import { parseUnits } from "viem";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
@@ -19,6 +19,7 @@ const switchToArc = async () => {
       method: "wallet_switchEthereumChain",
       params: [{ chainId: chainHex }],
     });
+    window.location.reload();
   } catch (switchError: any) {
     if (switchError.code === 4902) {
       await (window as any).ethereum.request({
@@ -31,6 +32,7 @@ const switchToArc = async () => {
           blockExplorerUrls: ["https://testnet.arcscan.app"],
         }],
       });
+      window.location.reload();
     }
   }
 };
@@ -38,7 +40,6 @@ const switchToArc = async () => {
 export default function SendPage() {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
-  const { switchChain } = useSwitchChain();
   const [mounted, setMounted] = useState(false);
   const [to, setTo] = useState("");
   const [amount, setAmount] = useState("");
@@ -105,7 +106,7 @@ export default function SendPage() {
               {isWrongNetwork && (
                 <div style={{ background: "rgba(220,50,50,0.06)", border: "1px solid rgba(220,50,50,0.2)", borderRadius: "12px", padding: "14px", textAlign: "center" }}>
                   <p style={{ color: "#dc2626", fontSize: "0.85rem", marginBottom: "10px" }}>⚠️ Wrong network detected</p>
-                  <button onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
+                  <button onClick={switchToArc}
                     style={{ background: "rgba(220,50,50,0.1)", border: "1px solid rgba(220,50,50,0.3)", color: "#dc2626", padding: "8px 20px", borderRadius: "8px", fontWeight: "600", fontSize: "0.85rem", cursor: "pointer" }}>
                     Switch to Arc Testnet
                   </button>
