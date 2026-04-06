@@ -9,6 +9,24 @@ export default function Home() {
   const { connect } = useConnect();
   const { disconnect } = useDisconnect();
 
+  const addArcTestnet = async () => {
+    if (!(window as any).ethereum) return;
+    try {
+      await (window as any).ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [{
+          chainId: "0x42A9B587",
+          chainName: "Arc Testnet",
+          nativeCurrency: { name: "USDC", symbol: "USDC", decimals: 18 },
+          rpcUrls: ["https://rpc.testnet.arc.network"],
+          blockExplorerUrls: ["https://testnet.arcscan.app"],
+        }],
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <>
       <style>{`
@@ -25,27 +43,16 @@ export default function Home() {
       }}>
 
         <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
-          {/* Orta büyük */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "480px", height: "480px", opacity: 0.25, objectFit: "contain" }} />
-          {/* Sol üst büyük */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", top: "40px", left: "40px", width: "200px", height: "200px", opacity: 0.22, objectFit: "contain" }} />
-          {/* Sol üst küçük */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", top: "200px", left: "220px", width: "130px", height: "130px", opacity: 0.16, objectFit: "contain" }} />
-          {/* Sol orta */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", top: "45%", left: "30px", width: "150px", height: "150px", opacity: 0.18, objectFit: "contain" }} />
-          {/* Sol alt */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "60px", left: "30px", width: "160px", height: "160px", opacity: 0.2, objectFit: "contain" }} />
-          {/* Sol alt küçük */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "200px", left: "180px", width: "100px", height: "100px", opacity: 0.14, objectFit: "contain" }} />
-          {/* Sağ üst büyük */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", top: "40px", right: "40px", width: "200px", height: "200px", opacity: 0.22, objectFit: "contain" }} />
-          {/* Sağ üst küçük */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", top: "220px", right: "220px", width: "120px", height: "120px", opacity: 0.16, objectFit: "contain" }} />
-          {/* Sağ orta */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", top: "45%", right: "30px", width: "150px", height: "150px", opacity: 0.18, objectFit: "contain" }} />
-          {/* Sağ alt büyük */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "60px", right: "40px", width: "180px", height: "180px", opacity: 0.22, objectFit: "contain" }} />
-          {/* Sağ alt küçük */}
           <img src="/usdc.png" alt="" style={{ position: "absolute", bottom: "220px", right: "220px", width: "110px", height: "110px", opacity: 0.14, objectFit: "contain" }} />
         </div>
 
@@ -54,7 +61,12 @@ export default function Home() {
             <Logo />
             <span style={{ fontSize: "1.25rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.02em" }}>ArcPay</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <button onClick={addArcTestnet}
+              style={{ fontSize: "0.82rem", color: "#2563eb", fontWeight: "500", border: "1px solid rgba(37,99,235,0.3)", padding: "8px 16px", borderRadius: "8px", display: "flex", alignItems: "center", gap: "6px", background: "transparent", cursor: "pointer" }}>
+              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22c55e", display: "inline-block" }}></span>
+              Add Arc Testnet
+            </button>
             {isConnected ? (
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <span style={{ fontSize: "0.78rem", color: "#6b7280", fontWeight: "500" }}>
