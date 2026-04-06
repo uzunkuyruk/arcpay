@@ -12,6 +12,29 @@ const ARC_CHAIN_ID = 1122334455;
 const ROUTER_ABI = [{ name: "sendPayment", type: "function", inputs: [{ name: "to", type: "address" }, { name: "amount", type: "uint256" }, { name: "note", type: "string" }], outputs: [], stateMutability: "nonpayable" }] as const;
 const ERC20_ABI = [{ name: "approve", type: "function", inputs: [{ name: "spender", type: "address" }, { name: "amount", type: "uint256" }], outputs: [{ name: "", type: "bool" }], stateMutability: "nonpayable" }] as const;
 
+const switchToArc = async () => {
+  const chainHex = "0x42A9B587";
+  try {
+    await (window as any).ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: chainHex }],
+    });
+  } catch (switchError: any) {
+    if (switchError.code === 4902) {
+      await (window as any).ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [{
+          chainId: chainHex,
+          chainName: "Arc Testnet",
+          nativeCurrency: { name: "USDC", symbol: "USDC", decimals: 18 },
+          rpcUrls: ["https://rpc.testnet.arc.network"],
+          blockExplorerUrls: ["https://testnet.arcscan.app"],
+        }],
+      });
+    }
+  }
+};
+
 export default function SendPage() {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
@@ -29,8 +52,9 @@ export default function SendPage() {
 
   const isWrongNetwork = chainId !== ARC_CHAIN_ID;
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!to || !amount) return;
+    await switchToArc();
     const units = parseUnits(amount, 6);
     setStep("approving");
     writeContract({ address: USDC, abi: ERC20_ABI, functionName: "approve", args: [ROUTER, units] }, {
@@ -101,8 +125,8 @@ export default function SendPage() {
                   style={{ width: "100%", background: "rgba(37,99,235,0.03)", border: "1px solid rgba(37,99,235,0.12)", borderRadius: "12px", padding: "12px 16px", color: "#0f172a", fontSize: "0.9rem" }} />
               </div>
 
-              <button onClick={handleSend} disabled={isWrongNetwork || step !== "idle" || !to || !amount}
-                style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "linear-gradient(135deg, #2563eb, #3b82f6)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "none", color: step === "done" ? "#16a34a" : "#ffffff", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: isWrongNetwork || step !== "idle" || !to || !amount ? "not-allowed" : "pointer", opacity: isWrongNetwork || !to || !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
+              <button onClick={handleSend} disabled={step !== "idle" || !to || !amount}
+                style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "linear-gradient(135deg, #2563eb, #3b82f6)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "none", color: step === "done" ? "#16a34a" : "#ffffff", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: step !== "idle" || !to || !amount ? "not-allowed" : "pointer", opacity: !to || !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
                 {step === "approving" ? "Approving..." : step === "sending" ? "Sending..." : step === "done" ? "✓ Sent!" : "Send Payment"}
               </button>
 
