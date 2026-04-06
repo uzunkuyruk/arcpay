@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAccount, useWriteContract, useChainId, useReadContract } from "wagmi";
+import { useAccount, useWriteContract, useChainId, useSwitchChain, useReadContract } from "wagmi";
 import { parseUnits, formatUnits } from "viem";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
@@ -18,32 +18,10 @@ const ERC20_ABI = [
 
 const STABLEFX_ABI = [{ name: "swap", type: "function", inputs: [{ name: "tokenIn", type: "address" }, { name: "tokenOut", type: "address" }, { name: "amountIn", type: "uint256" }, { name: "minAmountOut", type: "uint256" }, { name: "recipient", type: "address" }], outputs: [{ name: "", type: "uint256" }], stateMutability: "nonpayable" }] as const;
 
-const switchToArc = async () => {
-  const chainHex = "0x42A9B587";
-  try {
-    await (window as any).ethereum.request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId: chainHex }],
-    });
-  } catch (e: any) {
-    if (e.code === 4902) {
-      await (window as any).ethereum.request({
-        method: "wallet_addEthereumChain",
-        params: [{
-          chainId: chainHex,
-          chainName: "Arc Testnet",
-          nativeCurrency: { name: "USDC", symbol: "USDC", decimals: 18 },
-          rpcUrls: ["https://rpc.testnet.arc.network"],
-          blockExplorerUrls: ["https://testnet.arcscan.app"],
-        }],
-      });
-    }
-  }
-};
-
 export default function SwapPage() {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
+  const { switchChain } = useSwitchChain();
   const [mounted, setMounted] = useState(false);
   const [fromToken, setFromToken] = useState("USDC");
   const [toToken, setToToken] = useState("EURC");
@@ -84,21 +62,17 @@ export default function SwapPage() {
     setToToken(fromToken);
   };
 
-  const handleSwap = async () => {
+  const handleSwap = () => {
     if (!amount || !address) return;
-    if (chainId !== ARC_CHAIN_ID) {
-      await switchToArc();
-      return;
-    }
     const tokenIn = fromToken === "USDC" ? USDC : EURC;
     const tokenOut = toToken === "USDC" ? USDC : EURC;
     const amountIn = parseUnits(amount, 6);
     const minAmountOut = parseUnits((parseFloat(amount) * 0.9).toFixed(6), 6);
     setStep("approving");
-    writeContract({ address: tokenIn, abi: ERC20_ABI, functionName: "approve", args: [STABLEFX, amountIn], chainId: ARC_CHAIN_ID }, {
+    writeContract({ address: tokenIn, abi: ERC20_ABI, functionName: "approve", args: [STABLEFX, amountIn] }, {
       onSuccess: () => {
         setStep("swapping");
-        writeContract({ address: STABLEFX, abi: STABLEFX_ABI, functionName: "swap", args: [tokenIn, tokenOut, amountIn, minAmountOut, address], chainId: ARC_CHAIN_ID }, {
+        writeContract({ address: STABLEFX, abi: STABLEFX_ABI, functionName: "swap", args: [tokenIn, tokenOut, amountIn, minAmountOut, address] }, {
           onSuccess: (hash) => { setTxHash(hash); setStep("done"); },
           onError: () => setStep("idle"),
         });
@@ -140,7 +114,7 @@ export default function SwapPage() {
               {isWrongNetwork && (
                 <div style={{ background: "rgba(220,50,50,0.06)", border: "1px solid rgba(220,50,50,0.2)", borderRadius: "12px", padding: "14px", textAlign: "center" }}>
                   <p style={{ color: "#dc2626", fontSize: "0.85rem", marginBottom: "10px" }}>⚠️ Wrong network detected</p>
-                  <button onClick={switchToArc}
+                  <button onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
                     style={{ background: "rgba(220,50,50,0.1)", border: "1px solid rgba(220,50,50,0.3)", color: "#dc2626", padding: "8px 20px", borderRadius: "8px", fontWeight: "600", fontSize: "0.85rem", cursor: "pointer" }}>
                     Switch to Arc Testnet
                   </button>
@@ -182,8 +156,8 @@ export default function SwapPage() {
                 <span>1 {fromToken} ≈ 0.92 {toToken}</span>
               </div>
 
-              <button onClick={handleSwap} disabled={!amount || step !== "idle"}
-                style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "linear-gradient(135deg, #2563eb, #3b82f6)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "none", color: step === "done" ? "#16a34a" : "#ffffff", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: !amount || step !== "idle" ? "not-allowed" : "pointer", opacity: !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
+              <button onClick={handleSwap} disabled={isWrongNetwork || !amount || step !== "idle"}
+                style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "linear-gradient(135deg, #2563eb, #3b82f6)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "none", color: step === "done" ? "#16a34a" : "#ffffff", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: isWrongNetwork || !amount || step !== "idle" ? "not-allowed" : "pointer", opacity: isWrongNetwork || !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
                 {step === "approving" ? "Approving..." : step === "swapping" ? "Swapping..." : step === "done" ? "✓ Swapped!" : "Swap Now"}
               </button>
 
