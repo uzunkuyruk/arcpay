@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAccount, useWriteContract, useChainId, useSwitchChain, useBalance, useReadContract } from "wagmi";
+import { useAccount, useWriteContract, useChainId, useSwitchChain, useReadContract } from "wagmi";
 import { parseUnits, formatUnits } from "viem";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
@@ -45,6 +45,13 @@ export default function SwapPage() {
   });
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    if (isConnected && chainId !== ARC_CHAIN_ID) {
+      switchChain({ chainId: ARC_CHAIN_ID });
+    }
+  }, [isConnected, chainId]);
+
   if (!mounted) return null;
 
   const isWrongNetwork = chainId !== ARC_CHAIN_ID;
