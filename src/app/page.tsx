@@ -1,13 +1,24 @@
 "use client";
 
 import { Logo } from "@/components/Logo";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain } from "wagmi";
 import { injected } from "wagmi/connectors";
+import { useEffect } from "react";
+
+const ARC_CHAIN_ID = 1122334455;
 
 export default function Home() {
   const { address, isConnected } = useAccount();
   const { connect } = useConnect();
   const { disconnect } = useDisconnect();
+  const chainId = useChainId();
+  const { switchChain } = useSwitchChain();
+
+  useEffect(() => {
+    if (isConnected && chainId !== ARC_CHAIN_ID) {
+      switchChain({ chainId: ARC_CHAIN_ID });
+    }
+  }, [isConnected, chainId]);
 
   const addArcTestnet = async () => {
     if (!(window as any).ethereum) return;
@@ -63,7 +74,8 @@ export default function Home() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <button onClick={addArcTestnet}
-style={{ fontSize: "0.82rem", color: "#ffffff", fontWeight: "500", border: "none", padding: "8px 16px", borderRadius: "8px", display: "flex", alignItems: "center", gap: "6px", background: "linear-gradient(135deg, #2563eb, #3b82f6)", cursor: "pointer", boxShadow: "0 2px 12px rgba(37,99,235,0.3)" }}>              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22c55e", display: "inline-block" }}></span>
+              style={{ fontSize: "0.82rem", color: "#ffffff", fontWeight: "500", border: "none", padding: "8px 16px", borderRadius: "8px", display: "flex", alignItems: "center", gap: "6px", background: "linear-gradient(135deg, #2563eb, #3b82f6)", cursor: "pointer", boxShadow: "0 2px 12px rgba(37,99,235,0.3)" }}>
+              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22c55e", display: "inline-block" }}></span>
               Add Arc Testnet
             </button>
             {isConnected ? (
