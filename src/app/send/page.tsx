@@ -19,9 +19,8 @@ const switchToArc = async () => {
       method: "wallet_switchEthereumChain",
       params: [{ chainId: chainHex }],
     });
-    window.location.reload();
-  } catch (switchError: any) {
-    if (switchError.code === 4902) {
+  } catch (e: any) {
+    if (e.code === 4902) {
       await (window as any).ethereum.request({
         method: "wallet_addEthereumChain",
         params: [{
@@ -32,7 +31,6 @@ const switchToArc = async () => {
           blockExplorerUrls: ["https://testnet.arcscan.app"],
         }],
       });
-      window.location.reload();
     }
   }
 };
@@ -61,10 +59,10 @@ export default function SendPage() {
     }
     const units = parseUnits(amount, 6);
     setStep("approving");
-    writeContract({ address: USDC, abi: ERC20_ABI, functionName: "approve", args: [ROUTER, units] }, {
+    writeContract({ address: USDC, abi: ERC20_ABI, functionName: "approve", args: [ROUTER, units], chainId: ARC_CHAIN_ID }, {
       onSuccess: () => {
         setStep("sending");
-        writeContract({ address: ROUTER, abi: ROUTER_ABI, functionName: "sendPayment", args: [to as `0x${string}`, units, note] }, {
+        writeContract({ address: ROUTER, abi: ROUTER_ABI, functionName: "sendPayment", args: [to as `0x${string}`, units, note], chainId: ARC_CHAIN_ID }, {
           onSuccess: (hash) => { setTxHash(hash); setStep("done"); },
           onError: () => setStep("idle"),
         });

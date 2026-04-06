@@ -25,9 +25,8 @@ const switchToArc = async () => {
       method: "wallet_switchEthereumChain",
       params: [{ chainId: chainHex }],
     });
-    window.location.reload();
-  } catch (switchError: any) {
-    if (switchError.code === 4902) {
+  } catch (e: any) {
+    if (e.code === 4902) {
       await (window as any).ethereum.request({
         method: "wallet_addEthereumChain",
         params: [{
@@ -38,7 +37,6 @@ const switchToArc = async () => {
           blockExplorerUrls: ["https://testnet.arcscan.app"],
         }],
       });
-      window.location.reload();
     }
   }
 };
@@ -97,10 +95,10 @@ export default function SwapPage() {
     const amountIn = parseUnits(amount, 6);
     const minAmountOut = parseUnits((parseFloat(amount) * 0.9).toFixed(6), 6);
     setStep("approving");
-    writeContract({ address: tokenIn, abi: ERC20_ABI, functionName: "approve", args: [STABLEFX, amountIn] }, {
+    writeContract({ address: tokenIn, abi: ERC20_ABI, functionName: "approve", args: [STABLEFX, amountIn], chainId: ARC_CHAIN_ID }, {
       onSuccess: () => {
         setStep("swapping");
-        writeContract({ address: STABLEFX, abi: STABLEFX_ABI, functionName: "swap", args: [tokenIn, tokenOut, amountIn, minAmountOut, address] }, {
+        writeContract({ address: STABLEFX, abi: STABLEFX_ABI, functionName: "swap", args: [tokenIn, tokenOut, amountIn, minAmountOut, address], chainId: ARC_CHAIN_ID }, {
           onSuccess: (hash) => { setTxHash(hash); setStep("done"); },
           onError: () => setStep("idle"),
         });
