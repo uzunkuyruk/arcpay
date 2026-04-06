@@ -54,7 +54,10 @@ export default function SendPage() {
 
   const handleSend = async () => {
     if (!to || !amount) return;
-    await switchToArc();
+    if (chainId !== ARC_CHAIN_ID) {
+      await switchToArc();
+      return;
+    }
     const units = parseUnits(amount, 6);
     setStep("approving");
     writeContract({ address: USDC, abi: ERC20_ABI, functionName: "approve", args: [ROUTER, units] }, {

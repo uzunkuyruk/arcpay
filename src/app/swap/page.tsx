@@ -87,7 +87,10 @@ export default function SwapPage() {
 
   const handleSwap = async () => {
     if (!amount || !address) return;
-    await switchToArc();
+    if (chainId !== ARC_CHAIN_ID) {
+      await switchToArc();
+      return;
+    }
     const tokenIn = fromToken === "USDC" ? USDC : EURC;
     const tokenOut = toToken === "USDC" ? USDC : EURC;
     const amountIn = parseUnits(amount, 6);
