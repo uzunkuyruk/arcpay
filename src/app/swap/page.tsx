@@ -21,7 +21,7 @@ const STABLEFX_ABI = [{ name: "swap", type: "function", inputs: [{ name: "tokenI
 export default function SwapPage() {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
-  const { switchChain } = useSwitchChain();
+  const { switchChainAsync } = useSwitchChain();
   const [mounted, setMounted] = useState(false);
   const [fromToken, setFromToken] = useState("USDC");
   const [toToken, setToToken] = useState("EURC");
@@ -45,13 +45,6 @@ export default function SwapPage() {
   });
 
   useEffect(() => setMounted(true), []);
-
-  useEffect(() => {
-    if (isConnected && chainId !== ARC_CHAIN_ID) {
-      switchChain({ chainId: ARC_CHAIN_ID });
-    }
-  }, [isConnected, chainId]);
-
   if (!mounted) return null;
 
   const isWrongNetwork = chainId !== ARC_CHAIN_ID;
@@ -69,17 +62,26 @@ export default function SwapPage() {
     setToToken(fromToken);
   };
 
-  const handleSwap = () => {
+  const handleSwap = async () => {
     if (!amount || !address) return;
+
+    if (chainId !== ARC_CHAIN_ID) {
+      try {
+        await switchChainAsync({ chainId: ARC_CHAIN_ID });
+      } catch {
+        return;
+      }
+    }
+
     const tokenIn = fromToken === "USDC" ? USDC : EURC;
     const tokenOut = toToken === "USDC" ? USDC : EURC;
     const amountIn = parseUnits(amount, 6);
     const minAmountOut = parseUnits((parseFloat(amount) * 0.9).toFixed(6), 6);
     setStep("approving");
-    writeContract({ address: tokenIn, abi: ERC20_ABI, functionName: "approve", args: [STABLEFX, amountIn] }, {
+    writeContract({ address: tokenIn, abi: ERC20_ABI, functionName: "approve", args: [STABLEFX, amountIn], chainId: ARC_CHAIN_ID }, {
       onSuccess: () => {
         setStep("swapping");
-        writeContract({ address: STABLEFX, abi: STABLEFX_ABI, functionName: "swap", args: [tokenIn, tokenOut, amountIn, minAmountOut, address] }, {
+        writeContract({ address: STABLEFX, abi: STABLEFX_ABI, functionName: "swap", args: [tokenIn, tokenOut, amountIn, minAmountOut, address], chainId: ARC_CHAIN_ID }, {
           onSuccess: (hash) => { setTxHash(hash); setStep("done"); },
           onError: () => setStep("idle"),
         });
@@ -121,7 +123,7 @@ export default function SwapPage() {
               {isWrongNetwork && (
                 <div style={{ background: "rgba(220,50,50,0.06)", border: "1px solid rgba(220,50,50,0.2)", borderRadius: "12px", padding: "14px", textAlign: "center" }}>
                   <p style={{ color: "#dc2626", fontSize: "0.85rem", marginBottom: "10px" }}>⚠️ Wrong network detected</p>
-                  <button onClick={() => switchChain({ chainId: ARC_CHAIN_ID })}
+                  <button onClick={() => switchChainAsync({ chainId: ARC_CHAIN_ID })}
                     style={{ background: "rgba(220,50,50,0.1)", border: "1px solid rgba(220,50,50,0.3)", color: "#dc2626", padding: "8px 20px", borderRadius: "8px", fontWeight: "600", fontSize: "0.85rem", cursor: "pointer" }}>
                     Switch to Arc Testnet
                   </button>
@@ -163,8 +165,8 @@ export default function SwapPage() {
                 <span>1 {fromToken} ≈ 0.92 {toToken}</span>
               </div>
 
-              <button onClick={handleSwap} disabled={isWrongNetwork || !amount || step !== "idle"}
-                style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "linear-gradient(135deg, #2563eb, #3b82f6)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "none", color: step === "done" ? "#16a34a" : "#ffffff", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: isWrongNetwork || !amount || step !== "idle" ? "not-allowed" : "pointer", opacity: isWrongNetwork || !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
+              <button onClick={handleSwap} disabled={!amount || step !== "idle"}
+                style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "linear-gradient(135deg, #2563eb, #3b82f6)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "none", color: step === "done" ? "#16a34a" : "#ffffff", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: !amount || step !== "idle" ? "not-allowed" : "pointer", opacity: !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
                 {step === "approving" ? "Approving..." : step === "swapping" ? "Swapping..." : step === "done" ? "✓ Swapped!" : "Swap Now"}
               </button>
 
