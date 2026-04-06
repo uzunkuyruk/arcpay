@@ -1,17 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAccount, useWriteContract, useChainId, useSwitchChain } from "wagmi";
-import { parseUnits } from "viem";
+import { useAccount, useWriteContract, useChainId, useSwitchChain, useBalance, useReadContract } from "wagmi";
+import { parseUnits, formatUnits } from "viem";
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 
 const STABLEFX = "0x867650F5eAe8df91445971f14d89fd84F0C9a9f8";
-const USDC = "0x3600000000000000000000000000000000000000";
-const EURC = "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a";
+const USDC = "0x3600000000000000000000000000000000000000" as `0x${string}`;
+const EURC = "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a" as `0x${string}`;
 const ARC_CHAIN_ID = 1122334455;
 
-const ERC20_ABI = [{ name: "approve", type: "function", inputs: [{ name: "spender", type: "address" }, { name: "amount", type: "uint256" }], outputs: [{ name: "", type: "bool" }], stateMutability: "nonpayable" }] as const;
+const ERC20_ABI = [
+  { name: "approve", type: "function", inputs: [{ name: "spender", type: "address" }, { name: "amount", type: "uint256" }], outputs: [{ name: "", type: "bool" }], stateMutability: "nonpayable" },
+  { name: "balanceOf", type: "function", inputs: [{ name: "account", type: "address" }], outputs: [{ name: "", type: "uint256" }], stateMutability: "view" },
+] as const;
+
 const STABLEFX_ABI = [{ name: "swap", type: "function", inputs: [{ name: "tokenIn", type: "address" }, { name: "tokenOut", type: "address" }, { name: "amountIn", type: "uint256" }, { name: "minAmountOut", type: "uint256" }, { name: "recipient", type: "address" }], outputs: [{ name: "", type: "uint256" }], stateMutability: "nonpayable" }] as const;
 
 export default function SwapPage() {
@@ -26,10 +30,32 @@ export default function SwapPage() {
   const [txHash, setTxHash] = useState("");
   const { writeContract } = useWriteContract();
 
+  const { data: usdcBalance } = useReadContract({
+    address: USDC,
+    abi: ERC20_ABI,
+    functionName: "balanceOf",
+    args: address ? [address] : undefined,
+  });
+
+  const { data: eurcBalance } = useReadContract({
+    address: EURC,
+    abi: ERC20_ABI,
+    functionName: "balanceOf",
+    args: address ? [address] : undefined,
+  });
+
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   const isWrongNetwork = chainId !== ARC_CHAIN_ID;
+
+  const fromBalance = fromToken === "USDC"
+    ? usdcBalance ? parseFloat(formatUnits(usdcBalance, 6)).toFixed(2) : "0.00"
+    : eurcBalance ? parseFloat(formatUnits(eurcBalance, 6)).toFixed(2) : "0.00";
+
+  const toBalance = toToken === "USDC"
+    ? usdcBalance ? parseFloat(formatUnits(usdcBalance, 6)).toFixed(2) : "0.00"
+    : eurcBalance ? parseFloat(formatUnits(eurcBalance, 6)).toFixed(2) : "0.00";
 
   const handleSwitch = () => {
     setFromToken(toToken);
@@ -94,20 +120,29 @@ export default function SwapPage() {
                   </button>
                 </div>
               )}
+
               <div>
-                <label style={{ fontSize: "0.75rem", color: "#6b7280", marginBottom: "8px", display: "block", letterSpacing: "0.08em", textTransform: "uppercase" as const, fontWeight: "600" }}>From</label>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+                  <label style={{ fontSize: "0.75rem", color: "#6b7280", letterSpacing: "0.08em", textTransform: "uppercase" as const, fontWeight: "600" }}>From</label>
+                  <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>Balance: {fromBalance} {fromToken}</span>
+                </div>
                 <div style={{ display: "flex", gap: "12px" }}>
                   <div style={{ background: "rgba(37,99,235,0.06)", border: "1px solid rgba(37,99,235,0.15)", borderRadius: "12px", padding: "12px 16px", fontWeight: "700", color: "#2563eb", minWidth: "90px", textAlign: "center", fontSize: "0.9rem" }}>{fromToken}</div>
                   <input type="number" placeholder="0.00" value={amount} onChange={e => setAmount(e.target.value)}
                     style={{ flex: 1, background: "rgba(37,99,235,0.03)", border: "1px solid rgba(37,99,235,0.12)", borderRadius: "12px", padding: "12px 16px", color: "#0f172a", fontSize: "0.9rem" }} />
                 </div>
               </div>
+
               <button onClick={handleSwitch}
                 style={{ margin: "0 auto", background: "rgba(37,99,235,0.06)", border: "1px solid rgba(37,99,235,0.15)", width: "40px", height: "40px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.2rem", cursor: "pointer", color: "#2563eb" }}>
                 ↕
               </button>
+
               <div>
-                <label style={{ fontSize: "0.75rem", color: "#6b7280", marginBottom: "8px", display: "block", letterSpacing: "0.08em", textTransform: "uppercase" as const, fontWeight: "600" }}>To</label>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+                  <label style={{ fontSize: "0.75rem", color: "#6b7280", letterSpacing: "0.08em", textTransform: "uppercase" as const, fontWeight: "600" }}>To</label>
+                  <span style={{ fontSize: "0.75rem", color: "#6b7280" }}>Balance: {toBalance} {toToken}</span>
+                </div>
                 <div style={{ display: "flex", gap: "12px" }}>
                   <div style={{ background: "rgba(37,99,235,0.06)", border: "1px solid rgba(37,99,235,0.15)", borderRadius: "12px", padding: "12px 16px", fontWeight: "700", color: "#16a34a", minWidth: "90px", textAlign: "center", fontSize: "0.9rem" }}>{toToken}</div>
                   <div style={{ flex: 1, background: "rgba(37,99,235,0.03)", border: "1px solid rgba(37,99,235,0.12)", borderRadius: "12px", padding: "12px 16px", color: "#6b7280", fontSize: "0.9rem" }}>
@@ -115,14 +150,17 @@ export default function SwapPage() {
                   </div>
                 </div>
               </div>
+
               <div style={{ background: "rgba(37,99,235,0.04)", border: "1px solid rgba(37,99,235,0.08)", borderRadius: "12px", padding: "12px 16px", display: "flex", justifyContent: "space-between", fontSize: "0.82rem", color: "#6b7280" }}>
                 <span>Rate</span>
                 <span>1 {fromToken} ≈ 0.92 {toToken}</span>
               </div>
+
               <button onClick={handleSwap} disabled={isWrongNetwork || !amount || step !== "idle"}
                 style={{ background: step === "done" ? "rgba(22,163,74,0.15)" : "linear-gradient(135deg, #2563eb, #3b82f6)", border: step === "done" ? "1px solid rgba(22,163,74,0.3)" : "none", color: step === "done" ? "#16a34a" : "#ffffff", padding: "14px", borderRadius: "12px", fontWeight: "600", fontSize: "0.9rem", cursor: isWrongNetwork || !amount || step !== "idle" ? "not-allowed" : "pointer", opacity: isWrongNetwork || !amount ? 0.5 : 1, fontFamily: "'Inter', sans-serif", letterSpacing: "0.05em", boxShadow: step === "done" ? "none" : "0 4px 20px rgba(37,99,235,0.25)" }}>
                 {step === "approving" ? "Approving..." : step === "swapping" ? "Swapping..." : step === "done" ? "✓ Swapped!" : "Swap Now"}
               </button>
+
               {step === "done" && txHash && (
                 <div style={{ background: "rgba(220,252,231,0.6)", border: "1px solid rgba(34,197,94,0.2)", borderRadius: "12px", padding: "16px" }}>
                   <p style={{ color: "#16a34a", fontWeight: "600", marginBottom: "6px" }}>Swap successful!</p>
