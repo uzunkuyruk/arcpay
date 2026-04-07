@@ -9,7 +9,7 @@ import { Logo } from "@/components/Logo";
 const STABLEFX = "0x867650F5eAe8df91445971f14d89fd84F0C9a9f8";
 const USDC = "0x3600000000000000000000000000000000000000" as `0x${string}`;
 const EURC = "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a" as `0x${string}`;
-const ARC_CHAIN_ID = 1122334455;
+const ARC_CHAIN_ID = 5042002;
 
 const ERC20_ABI = [
   { name: "approve", type: "function", inputs: [{ name: "spender", type: "address" }, { name: "amount", type: "uint256" }], outputs: [{ name: "", type: "bool" }], stateMutability: "nonpayable" },
@@ -17,6 +17,29 @@ const ERC20_ABI = [
 ] as const;
 
 const STABLEFX_ABI = [{ name: "swap", type: "function", inputs: [{ name: "tokenIn", type: "address" }, { name: "tokenOut", type: "address" }, { name: "amountIn", type: "uint256" }, { name: "minAmountOut", type: "uint256" }, { name: "recipient", type: "address" }], outputs: [{ name: "", type: "uint256" }], stateMutability: "nonpayable" }] as const;
+
+const switchToArc = async () => {
+  const chainHex = "0x4CFFE2";
+  try {
+    await (window as any).ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: chainHex }],
+    });
+  } catch (e: any) {
+    if (e.code === 4902) {
+      await (window as any).ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [{
+          chainId: chainHex,
+          chainName: "Arc Testnet",
+          nativeCurrency: { name: "USDC", symbol: "USDC", decimals: 18 },
+          rpcUrls: ["https://rpc.testnet.arc.network"],
+          blockExplorerUrls: ["https://testnet.arcscan.app"],
+        }],
+      });
+    }
+  }
+};
 
 export default function SwapPage() {
   const { address, isConnected } = useAccount();
@@ -62,8 +85,12 @@ export default function SwapPage() {
     setToToken(fromToken);
   };
 
-  const handleSwap = () => {
+  const handleSwap = async () => {
     if (!amount || !address) return;
+    if (chainId !== ARC_CHAIN_ID) {
+      await switchToArc();
+      return;
+    }
     const tokenIn = fromToken === "USDC" ? USDC : EURC;
     const tokenOut = toToken === "USDC" ? USDC : EURC;
     const amountIn = parseUnits(amount, 6);
