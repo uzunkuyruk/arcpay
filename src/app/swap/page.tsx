@@ -122,7 +122,10 @@ export default function SwapPage() {
         <nav style={{ borderBottom: "1px solid rgba(37,99,235,0.15)", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)" }}>
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none" }}>
             <Logo />
-            <span style={{ fontSize: "1.25rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.02em" }}>ArcPay</span>
+            <span style={{ fontSize: "1.25rem", letterSpacing: "0.02em", marginLeft: "8px" }}>
+  <span style={{ fontWeight: "700", background: "linear-gradient(135deg, #7c3aed, #2563eb, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Arc</span>
+  <span style={{ fontWeight: "500", background: "linear-gradient(135deg, #2563eb, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Pay</span>
+</span>
           </Link>
           <span style={{ fontSize: "0.78rem", color: "#6b7280" }}>{address?.slice(0, 6)}...{address?.slice(-4)}</span>
         </nav>

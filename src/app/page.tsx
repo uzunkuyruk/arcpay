@@ -70,7 +70,10 @@ export default function Home() {
         <nav style={{ position: "relative", zIndex: 10, borderBottom: "1px solid rgba(74,144,255,0.15)", padding: "12px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", background: "rgba(255,255,255,0.7)", backdropFilter: "blur(16px)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <Logo />
-            <span style={{ fontSize: "1.25rem", fontWeight: "700", color: "#2563eb", letterSpacing: "0.02em" }}>ArcPay</span>
+            <span style={{ fontSize: "1.25rem", letterSpacing: "0.02em", marginLeft: "8px" }}>
+  <span style={{ fontWeight: "700", background: "linear-gradient(135deg, #7c3aed, #2563eb, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Arc</span>
+  <span style={{ fontWeight: "500", background: "linear-gradient(135deg, #2563eb, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Pay</span>
+</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <button onClick={addArcTestnet}
