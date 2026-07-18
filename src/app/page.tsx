@@ -5,7 +5,7 @@ import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain } fro
 import { injected } from "wagmi/connectors";
 import { useEffect } from "react";
 
-const ARC_CHAIN_ID = 1122334455;
+const ARC_CHAIN_ID = 5042002;
 
 export default function Home() {
   const { address, isConnected } = useAccount();
@@ -26,7 +26,7 @@ export default function Home() {
       await (window as any).ethereum.request({
         method: "wallet_addEthereumChain",
         params: [{
-          chainId: "0x42A9B587",
+          chainId: "0x4CFFE2",
           chainName: "Arc Testnet",
           nativeCurrency: { name: "USDC", symbol: "USDC", decimals: 18 },
           rpcUrls: ["https://rpc.testnet.arc.network"],
@@ -71,9 +71,9 @@ export default function Home() {
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <Logo />
             <span style={{ fontSize: "1.25rem", letterSpacing: "0.02em", marginLeft: "8px" }}>
-  <span style={{ fontWeight: "700", background: "linear-gradient(135deg, #7c3aed, #2563eb, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Arc</span>
-  <span style={{ fontWeight: "500", background: "linear-gradient(135deg, #2563eb, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Pay</span>
-</span>
+              <span style={{ fontWeight: "700", background: "linear-gradient(135deg, #7c3aed, #2563eb, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Vault</span>
+              <span style={{ fontWeight: "500", background: "linear-gradient(135deg, #2563eb, #06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>z</span>
+            </span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <button onClick={addArcTestnet}
