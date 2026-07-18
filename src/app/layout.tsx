@@ -6,7 +6,7 @@ import { Providers } from "./providers";
 const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ArcPay",
+  title: "Vaultz",
   description: "Global Payments & Stablecoin Swap on Arc",
 };
 
